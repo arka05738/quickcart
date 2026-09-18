@@ -1,13 +1,15 @@
-# QuickCart
+# QuickCart (No-Database Version)
 
-QuickCart is a simple full-stack e-commerce demo built for a college assignment. It uses plain HTML/CSS/JavaScript on the frontend, Node.js with Express on the backend, and PostgreSQL for data storage. Docker Compose runs the app and database together.
+QuickCart is a simple full-stack e-commerce demo for a college assignment. This version uses plain HTML/CSS/JavaScript on the frontend and Node.js + Express on the backend. **It does not use PostgreSQL or any database.**
+
+Products are loaded from a local JSON file. Orders and contact messages are accepted by the API and stored in memory for the running process only (they reset when the server restarts). The shopping cart still uses browser `localStorage`.
 
 ## Technologies
 
 - **Frontend:** HTML, CSS, JavaScript (no React, no Bootstrap)
 - **Backend:** Node.js + Express
-- **Database:** PostgreSQL
-- **Containers:** Docker + Docker Compose
+- **Data:** Local JSON file (`data/products.json`) — no database
+- **Containers:** Docker + Docker Compose (app only)
 - **Cart:** Browser `localStorage`
 
 ## Folder structure
@@ -18,8 +20,8 @@ quickcart/
 │   ├── index.html
 │   ├── style.css
 │   └── script.js
-├── db/
-│   └── init.sql
+├── data/
+│   └── products.json
 ├── server.js
 ├── package.json
 ├── package-lock.json
@@ -31,7 +33,18 @@ quickcart/
 └── README.md
 ```
 
-## How to run with Docker (recommended)
+## How to run locally
+
+```bash
+npm install
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+Optional: copy `.env.example` to `.env` if you want to set `PORT`.
+
+## How to run with Docker
 
 ```bash
 docker compose build
@@ -41,49 +54,19 @@ docker compose ps
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Stop everything:
+Stop:
 
 ```bash
 docker compose down
 ```
 
-## How to run locally
-
-1. Copy environment variables:
-```bash
-cp .env.example .env
-```
-
-2. Start PostgreSQL (Docker is easiest):
-```bash
-docker compose up -d db
-```
-
-3. Install dependencies and start the server:
-```bash
-npm install
-npm start
-```
-
-On Windows PowerShell you can set the env var for one session if needed:
-```powershell
-Copy-Item .env.example .env
-$env:DATABASE_URL = "postgresql://postgres:postgres123@localhost:5432/quickcart"
-npm install
-npm start
-```
-
-> Tip: `server.js` reads `DATABASE_URL` from the environment. With Docker Compose the variable is injected automatically. For local Node, either export it or use a small loader; the simplest path for this assignment is Docker Compose for the full stack.
-
-To load `.env` without extra packages when running locally, start Postgres with Compose and run Node with the URL set as shown above.
-
 ## API endpoints
 
 | Method | Endpoint | Description |
 | --- | --- | --- |
-| `GET` | `/api/products` | List products from PostgreSQL |
-| `POST` | `/api/orders` | Save a checkout order |
-| `POST` | `/api/contact` | Save a contact message |
+| `GET` | `/api/products` | List products from `data/products.json` |
+| `POST` | `/api/orders` | Accept an order (stored in memory, no DB) |
+| `POST` | `/api/contact` | Accept a contact message (stored in memory, no DB) |
 
 ### Example order body
 
@@ -106,37 +89,33 @@ To load `.env` without extra packages when running locally, start Postgres with 
 }
 ```
 
-## Database
+## Cloud deployment notes
 
-`db/init.sql` creates:
-
-- `products`
-- `orders`
-- `contact_messages`
-
-It also inserts **6 sample products**.
-
-Default credentials (demo only):
-
-- Database: `quickcart`
-- User: `postgres`
-- Password: `postgres123`
+- Listen address is `0.0.0.0` so cloud platforms can reach the app.
+- Port comes from `process.env.PORT` (falls back to `3000`).
+- No `DATABASE_URL` or database credentials are required.
 
 ## How another teammate can clone and run it
 
 ```bash
 git clone <your-repo-url>
 cd quickcart
-cp .env.example .env
-docker compose up -d --build
+npm install
+npm start
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Or with Docker:
+
+```bash
+git clone <your-repo-url>
+cd quickcart
+docker compose up -d --build
+```
 
 Features to verify:
 
 1. Homepage loads and featured products appear from the API
-2. Products page lists all 6 database products
+2. Products page lists all 6 products from JSON
 3. Cart add / quantity / remove / total works (localStorage)
-4. Checkout form creates a row in `orders`
-5. Contact form creates a row in `contact_messages`
+4. Checkout form succeeds via `POST /api/orders` (no database)
+5. Contact form succeeds via `POST /api/contact` (no database)

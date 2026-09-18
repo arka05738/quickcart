@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "price": 79.99,
+    "description": "Comfortable over-ear headphones with clear sound and long battery life.",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop",
+    "category": "Audio"
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch",
+    "price": 129.99,
+    "description": "Track fitness, notifications, and daily activity with a sleek smartwatch.",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop",
+    "category": "Wearables"
+  },
+  {
+    "id": 3,
+    "name": "Canvas Backpack",
+    "price": 49.99,
+    "description": "Durable everyday backpack with padded laptop sleeve and multiple pockets.",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop",
+    "category": "Bags"
+  },
+  {
+    "id": 4,
+    "name": "Running Shoes",
+    "price": 89.99,
+    "description": "Lightweight sneakers designed for comfort, support, and everyday movement.",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop",
+    "category": "Footwear"
+  },
+  {
+    "id": 5,
+    "name": "Desk Lamp",
+    "price": 34.99,
+    "description": "Modern LED desk lamp with adjustable brightness for study and work.",
+    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop",
+    "category": "Home"
+  },
+  {
+    "id": 6,
+    "name": "Stainless Water Bottle",
+    "price": 24.99,
+    "description": "Insulated bottle that keeps drinks cold or hot for hours on the go.",
+    "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&auto=format&fit=crop",
+    "category": "Lifestyle"
+  }
+]
